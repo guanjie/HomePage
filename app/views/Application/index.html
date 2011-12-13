@@ -1,0 +1,291 @@
+
+<html>
+
+<head>
+<script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.2.min.js" language="javascript"
+        type="text/javascript">
+        </script>
+        
+        
+        <script type="text/javascript">
+        var theWidth;
+var theHeight;
+var currentContent = 0;
+
+$(window).resize(function () {
+    sizeContent();
+});
+
+$(window).ready(function () {
+    sizeContent();
+});
+
+function sizeContent() {
+    theWidth = $(window).width();
+    theHeight = $(window).height();
+    sizeContentItems();
+    setLeftOnContentItems();
+    sizeContentWrapper(theWidth, theHeight);
+    moveContent(currentContent, theWidth);
+    changeSelected(currentContent);
+}
+
+function sizeContentItems() {
+    $(".contentItem").css('width', theWidth);
+    $(".contentItem").css('height', theHeight);
+}
+
+function setLeftOnContentItems() {
+    var contentCount = 0;
+    $(".contentItem").each(function (i) {
+        contentCount += i;
+        $(this).css('left', i * theWidth);
+    });
+}
+
+function sizeContentWrapper(width, height) {
+    $("#contentWrapper").css('width', width - 80);
+    $("#contentWrapper").css('height', height);
+}
+
+function moveContent(i, width) {
+    $("#contentWrapper").scrollLeft(i * width);
+}
+
+function changeSelected(i) {
+    $(".selected").removeClass("selected");
+    $("li:eq(" + i + ") a").addClass("selected");
+}
+
+function scrollContentNext() {
+    scrollContent(currentContent + 1);
+}
+
+function scrollContent(i) {
+    i = checkMax(i);
+    scrollLogo(i);
+    scrollTriangle(i);
+    changeSelected(i)
+    currentContent = i;
+    $("#contentWrapper").animate({ scrollLeft: i * theWidth }, 1000);
+}
+
+function scrollLogo(i) {
+    var left = (i * -200) + 20;
+    $("#logo").animate({ left: left }, 1000);
+}
+
+function scrollTriangle(i) {
+    var left = (i * -300);
+    $("#triangle").animate({ left: left }, 1000);
+}
+
+function checkMax(i) {
+    var maxItems = $("li").length;
+    if (i >= maxItems) {
+        return 0;
+    }
+    return i;
+}
+
+        
+        </script>
+        
+<style type="text/css">
+        body
+{
+    margin: 0px;
+    padding: 0px;
+}
+
+#logo
+{
+    position: absolute;
+    top: 0;
+    left: 1200px;
+    top: 0;
+    height: 1000;
+    width: 1000px;
+    background-image:url('public/images/logo520_400.jpg');
+    background-repeat:no-repeat;
+    z-index: 2;
+}
+
+#triangle
+{
+    z-index: 1;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    top: 0px;
+    height: 400px;
+    width: 750px;
+    background-image:url('public/images/triangle.png');
+}
+
+#nav
+{
+    position: absolute;
+    bottom: 10px;
+    width: 300px;
+    height: 20px;
+    left: 40%;
+}
+
+#nav ul
+{
+    position: absolute;
+    bottom: 10px;
+    width: 300px;
+    height: 20px;
+    clear: both;
+    display: block;
+    list-style-type: none;
+    list-style-position: outside;
+    list-style-image: none;
+}
+
+#nav ul li
+{
+    float: left;
+}
+
+#nav ul li a
+{
+    position: relative;
+    top: 0px;
+    margin-right: 5px;
+    background-color: Black;
+    background-repeat: no-repeat;
+    width: 30px;
+    height: 30px;
+    display: block;
+}
+
+#nav ul li a:hover
+{
+    background-color: #e1e1e1;
+}
+
+#nav ul li .selected
+{
+    background-color: #e5e5e5;
+}
+
+#rightButton
+{
+    position:absolute;
+    width:80px;
+    right:0px;
+    height:100%;
+    z-index:3;
+}
+#rightButton a
+{
+    position:absolute;
+    top:40%;
+    width:80px;
+    height:80px;
+    background-image:url('public/images/button.png');
+    display:block;
+}
+
+#contentWrapper
+{
+   position:absolute;
+   overflow:hidden;
+}
+.contentItem
+{
+    position: absolute;
+    background-color: #fff;
+}
+
+
+#contentPicture1
+{
+    position:relative;
+    top:30%;
+    left:30%;
+    width:550px;
+    height:550px;
+    background-color:#fff;
+    background-image:url('public/images/content1.png');
+    background-repeat:no-repeat;
+}
+#contentPicture2
+{
+    position:relative;
+    top:30%;
+    left:30%;
+    width:550px;
+    height:550px;
+    background-color:#fff;
+    background-image:url('public/images/content2.png');
+    background-repeat:no-repeat;
+    
+}
+#contentPicture3
+{
+    position:relative;
+    top:30%;
+    left:30%;
+    width:550px;
+    height:550px;
+    background-color:#fff;
+    background-image:url('public/images/content3.png');
+    background-repeat:no-repeat;
+    
+}
+#contentPicture4
+{
+   position:relative;
+    top:30%;
+    left:30%;
+    width:550px;
+    height:550px;
+    background-color:#fff;
+    background-image:url('/public/images/content4.png');
+    background-repeat:no-repeat;    
+    
+}
+		
+	</style>
+</head>
+      
+        
+        
+<body>
+    <div id="logo">
+    </div>
+    <div id="triangle">
+    </div>
+    <div id="contentWrapper">
+        <div class="contentItem" id="content1">
+            <div id="contentPicture1"></div></div>
+        <div class="contentItem" id="content2">
+            <div id="contentPicture2"></div></div>
+        <div class="contentItem" id="content3">
+            <div id="contentPicture3"></div></div>
+        <div class="contentItem" id="content4">
+        	<p><a href="http://www.google.com">www.google.com</a>This part is for trial and error</p>
+            <div id="contentPicture4">
+            </div></div>
+    </div>
+    
+    <div id="nav">
+        <ul>
+            <li><a href="#" class="selected" onclick="scrollContent(0)""></a>
+            </li>
+            <li><a href="#" onclick="scrollContent(1)"></a></li>
+            <li><a href="#" onclick="scrollContent(2)"></a></li>
+            <li><a href="#" onclick="scrollContent(3)"></a></li>
+        </ul>
+    </div>
+    <div id="rightButton">
+    <a href="#" onclick="scrollContentNext()"></a>
+    </div>
+</body>
+
+
+</html>
